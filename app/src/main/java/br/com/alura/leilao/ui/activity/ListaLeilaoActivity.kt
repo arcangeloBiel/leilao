@@ -39,10 +39,7 @@ class ListaLeilaoActivity : AppCompatActivity() {
     private fun leiloesDeExemplo(): List<Leilao> {
         val console = Leilao("Console", 3.0)
         console.propoe(Lance(Usuario("João"), 50.0))
+        console.propoe(Lance(Usuario("arcangelo"), 30.0))
         return listOf(console)
-    }
-
-    companion object {
-        private const val UI_ANIMATION_DELAY = 300
     }
 }

@@ -32,6 +32,7 @@ class ListaLeilaoAdapter(
             this.leilao = leilao
             binding.itemLeilaoDescricao.text = leilao.descricao
             binding.itemLeilaoMaiorLance.text = leilao.maiorLance.toString()
+            binding.itemLeilaoMaiorLance.text = leilao.maiorLance.toString()
         }
     }
 
