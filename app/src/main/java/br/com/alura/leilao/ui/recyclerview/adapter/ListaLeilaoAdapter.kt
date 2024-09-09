@@ -1,17 +1,13 @@
 package br.com.alura.leilao.ui.recyclerview.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import br.com.alura.leilao.R
 import br.com.alura.leilao.data.OnItemClickListener
+import br.com.alura.leilao.databinding.ItemLeilaoBinding
 import br.com.alura.leilao.model.Leilao
 
 class ListaLeilaoAdapter(
-    private val context: Context,
     private val leiloes: List<Leilao>
 ) : RecyclerView.Adapter<ListaLeilaoAdapter.ViewHolder>() {
 
@@ -21,35 +17,35 @@ class ListaLeilaoAdapter(
         this.onItemClickListener = onItemClickListener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewCriada = LayoutInflater.from(context).inflate(R.layout.item_leilao, parent, false)
-        return ViewHolder(viewCriada)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val leilao = pegaLeilaoPorPosicao(position)
-        holder.vincula(leilao)
-    }
-
-    override fun getItemCount(): Int = leiloes.size
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val descricao: TextView = itemView.findViewById(R.id.item_leilao_descricao)
+    inner class ViewHolder(val binding: ItemLeilaoBinding) : RecyclerView.ViewHolder(binding.root) {
         private lateinit var leilao: Leilao
 
         init {
             itemView.setOnClickListener {
-                onItemClickListener?.onItemClick(leilao)
+                if (::leilao.isInitialized) {
+                    onItemClickListener?.onItemClick(leilao)
+                }
             }
         }
 
-        fun vincula(leilao: Leilao) {
+        fun bind(leilao: Leilao) {
             this.leilao = leilao
-            descricao.text = leilao.descricao
+            binding.itemLeilaoDescricao.text = leilao.descricao
+            binding.itemLeilaoMaiorLance.text = leilao.maiorLance.toString()
         }
     }
 
-    fun pegaLeilaoPorPosicao(posicao: Int): Leilao = leiloes[posicao]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemLeilaoBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ViewHolder(binding)
+    }
 
+    override fun getItemCount(): Int = leiloes.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(leiloes[position])
+    }
 }
+

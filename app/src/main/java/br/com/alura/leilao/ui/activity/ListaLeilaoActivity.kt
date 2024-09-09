@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import br.com.alura.leilao.data.OnItemClickListener
 import br.com.alura.leilao.databinding.ActivityListaLeilaoBinding
+import br.com.alura.leilao.model.Lance
 import br.com.alura.leilao.model.Leilao
+import br.com.alura.leilao.model.Usuario
 import br.com.alura.leilao.ui.recyclerview.adapter.ListaLeilaoAdapter
 
 /**
@@ -23,7 +25,7 @@ class ListaLeilaoActivity : AppCompatActivity() {
         binding = ActivityListaLeilaoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = ListaLeilaoAdapter(this, leiloesDeExemplo())
+        val adapter = ListaLeilaoAdapter(leiloesDeExemplo())
         binding.listaLeilaoRecyclerview.adapter = adapter
         adapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(leilao: Leilao) {
@@ -35,7 +37,8 @@ class ListaLeilaoActivity : AppCompatActivity() {
     }
 
     private fun leiloesDeExemplo(): List<Leilao> {
-        val console = Leilao("Console", 3F)
+        val console = Leilao("Console", 3.0)
+        console.propoe(Lance(Usuario("João"), 50.0))
         return listOf(console)
     }
 

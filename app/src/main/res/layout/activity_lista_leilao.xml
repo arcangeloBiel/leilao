@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/write_overlay"
     tools:context=".ui.activity.ListaLeilaoActivity">
 
     <android.support.v7.widget.RecyclerView
