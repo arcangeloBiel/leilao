@@ -21,7 +21,6 @@ class LancesLeilaoActivity : AppCompatActivity() {
         val dadosRecebidos = intent
         if (dadosRecebidos.hasExtra("leilao")) {
             val leilao = dadosRecebidos.getSerializableExtra("leilao") as Leilao
-            Log.d("leilao","leilao $leilao:leilao")
             binding.lancesLeilaoDescricao.text = leilao.descricao
             binding.lancesLeilaoMaiorLance.text = leilao.maiorLance.toString()
             binding.lancesLeilaoMenorLance.text = leilao.menorLance.toString()
